@@ -15,9 +15,16 @@ variable "close_on_deletion" {
 }
 
 variable "iam_user_access_to_billing" {
-  type        = bool
+  type        = string
   description = "If set to ALLOW, the new account enables IAM users and roles to access account billing information if they have the required permissions"
-  default     = true
+  default     = "ALLOW"
+  validation {
+    condition = anytrue([
+      var.iam_user_access_to_billing == "ALLOW",
+      var.iam_user_access_to_billing == "DENY",
+    ])
+    error_message = "The iam_user_access_to_billing must be one of ALLOW, or DENY."
+  }
 }
 
 variable "parent_id" {
