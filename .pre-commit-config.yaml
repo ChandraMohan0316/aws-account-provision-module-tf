@@ -1,0 +1,16 @@
+# ---------------------------------------------------------------------------------------------------------------------
+# PRE COMMIT CONFIG
+# This pre commit configuration will validate, format (if not formatted) and create docs for the terraform files.
+# ---------------------------------------------------------------------------------------------------------------------
+
+repos:
+  - repo: https://github.com/antonbabenko/pre-commit-terraform
+    rev: v1.75.0
+    hooks:
+      - id: terraform_fmt
+      - id: terraform_docs
+        args:
+          - --hook-config=--path-to-file=README.md
+          - --hook-config=--add-to-existing-file=true
+          - --hook-config=--create-file-if-not-exist=true
+          - --hook-config=--use-standard-markers=true
